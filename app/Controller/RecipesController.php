@@ -35,30 +35,30 @@ class RecipesController extends AppController {
 		// ));
 
 		$this->Recipe->create();
-				
+
 		if( filter_var($this->request->data["mailAddress"], FILTER_VALIDATE_EMAIL) && ( $this->request->data["status"] ==0 || $this->request->data["status"] ==1 )){
 		    if ($this->Recipe->save($this->request->data)) {
 				$message = '000';
-				
+
 				try{
 					$Email = new CakeEmail('simple');
 					$Email->from(array('imadoco6@gmail.com' => 'Imadoco app server'))
 					->to($this->request->data["mailAddress"])
 					->subject('imadoko info')
-					->send('imadoko status:' . $this->request->data["status"] . ' areaName'. $this->request->data["mailAddress"]);
+					->send($this->request->data["areaName"]. 'ã«'. ( $this->request->data["status"] == 1 ? 'å…¥ã‚Šã¾ã—ãŸã€‚' : 'å‡ºã¾ã—ãŸã€‚' ));
 				}catch (Exception $e) {
 					 $message = '002';
 				}
-				
+
 			} else {
 				$message = '999';
-			}			
-			
+			}
+
 		} else {
-		    // ³‚µ‚­‚È‚¢ê‡‚ÌƒƒWƒbƒN
+		    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Ìƒï¿½ï¿½Wï¿½bï¿½N
 		    $message = '001';
 		}
-		
+
 		$this->set(array(
 			'message' => $message,
 			'_serialize' => array('message')
