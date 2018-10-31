@@ -45,7 +45,7 @@ class RecipesController extends AppController {
 					$Email->from(array('imadoco6@gmail.com' => 'Imadoco app server'))
 					->to($this->request->data["mailAddress"])
 					->subject('imadoko info')
-					->send($this->request->data["areaName"]. 'に'. ( $this->request->data["status"] == 1 ? '入りました。' : '出ました。' ));
+					->send($this->request->data["areaName"].( $this->request->data["status"] == 1 ? 'の範囲に入りました。' : 'の範囲から出ました。' ));
 				}catch (Exception $e) {
 					 $message = '002';
 				}
@@ -55,7 +55,6 @@ class RecipesController extends AppController {
 			}
 
 		} else {
-		    // �������Ȃ��ꍇ�̃��W�b�N
 		    $message = '001';
 		}
 
